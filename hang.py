@@ -24,24 +24,16 @@ class Archive:
         self.wordlist = string.split(self.line)
 
     def lengthWordList(self):
+        """
+        Depending on the size of the word list, this function may
+        take a while to finish.
+        """
         self.length = len(self.wordlist)
 
 
-def loadWords():
-    """
-    Depending on the size of the word list, this function may
-    take a while to finish.
-    """
-    print "Loading word list from file..."
-    # inFile: file
-    inFile = open(WORDLIST_FILENAME, 'r', 0)
-    # line: string
-    line = inFile.readline()
-    # wordlist: list of strings
-    wordlist = string.split(line)
-    print "  ", len(wordlist), "words loaded."
-    return random.choice(wordlist)
-
+def printLoadWords(lenWord):
+    print "Loading word List from file..."
+    print "  ", lenWord, "words loaded."
 
 def isWordGuessed(secretWord, lettersGuessed):
     secretLetters = []
@@ -134,7 +126,12 @@ def hangman(secretWord):
         else:
             print 'Sorry, you ran out of guesses. The word was ', secretWord, '.'
 
-
+archive = new Archive(WORDLIST_FILENAME)
+archive.openArchive()
+archive.readArchive()
+archive.wordlist()
+archive.lengthWordList()
+printLoadWords(archive.length)
 
 
 secretWord = loadWords().lower()
