@@ -3,6 +3,30 @@ import string
 
 WORDLIST_FILENAME = "palavras.txt"
 
+class Archive:
+    # Atributos da classe
+    fileName = ""
+    inFile = ""
+    line = ""
+    wordlist = ""
+    length = 0
+
+    def __init__(self, fileName):
+        self.fileName = fileName
+
+    def openArchive(self):
+        self.inFile = open(WORDLIST_FILENAME, 'r', 0);
+
+    def readArchive(self):
+        self.line = self.inFile.readline()
+
+    def wordlist(self):
+        self.wordlist = string.split(self.line)
+
+    def lengthWordList(self):
+        self.length = len(self.wordlist)
+
+
 def loadWords():
     """
     Depending on the size of the word list, this function may
