@@ -3,41 +3,21 @@ import string
 
 WORDLIST_FILENAME = "palavras.txt"
 
-class Archive:
-    # Atributos da classe
-    fileName = ""
-    inFile = ""
-    line = ""
-    wordlist = ""
-    length = 0
-
-    def __init__(self, fileName):
-        self.fileName = fileName
-
-    def openArchive(self):
-        self.inFile = open(WORDLIST_FILENAME, 'r', 0);
-
-    def readArchive(self):
-        self.line = self.inFile.readline()
-
-    def wordlist(self):
-        self.wordlist = string.split(self.line)
-
-    def lengthWordList(self):
-        """
-        Depending on the size of the word list, this function may
-        take a while to finish.
-        """
-        self.length = len(self.wordlist)
-
-
-def printLoadWords(lenWord):
-    print "Loading word List from file..."
-    print "  ", lenWord, "words loaded."
+def loadWords():
+    """
+    Depending on the size of the word list, this function may
+    take a while to finish.
+    """
+    print "Loading word list from file..."
+    inFile = open(WORDLIST_FILENAME, 'r', 0)
+    line = inFile.readline()
+    wordlist = string.split(line)
+    print "  ", len(wordlist), "words loaded."
+    return random.choice(wordlist)
 
 def isWordGuessed(secretWord, lettersGuessed):
-    secretLetters = []
 
+    secretLetters = []
     for letter in secretWord:
         if letter in lettersGuessed:
             pass
@@ -47,11 +27,12 @@ def isWordGuessed(secretWord, lettersGuessed):
     return True
 
 def getGuessedWord():
-
      guessed = ''
+
      return guessed
 
 def getAvailableLetters():
+
     import string
     available = string.ascii_lowercase
 
@@ -94,7 +75,7 @@ class Hangman:
 
                 print 'Oops! You have already guessed that letter: ', guessed
             elif letter in self.secretWord:
-                lettersGuessed.append(letter)
+                self.lettersGuessed.append(letter)
 
                 guessed = getGuessedWord()
                 for letter in self.secretWord:
@@ -125,13 +106,7 @@ class Hangman:
                 print 'Sorry, you ran out of guesses. The word was ', secretWord, '.'
 
 
-archive = new Archive(WORDLIST_FILENAME)
-archive.openArchive()
-archive.readArchive()
-archive.wordlist()
-archive.lengthWordList()
-printLoadWords(archive.length)
-
+secretWord = loadWords().lower()
 hangman = Hangman()
 hangman.secretWord(secretWord)
 hangman.gameHangam()
